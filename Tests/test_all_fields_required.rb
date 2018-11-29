@@ -5,6 +5,7 @@ require_relative 'face_book_test_base'
 
 class LoginClass < FaceBookTestBase
 
+# it looks like I should have used a gem called Rspec as it makes adding Tags easy.
 
   def test_no_fields_entered
     # Verify that if no info is entered into any of the fields and the submit button is clicked, all
