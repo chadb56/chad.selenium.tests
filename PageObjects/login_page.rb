@@ -1,0 +1,86 @@
+require 'selenium-webdriver'
+
+class LoginPage
+  FIRST_NAME_LOCATOR = {name: "firstname"}
+  LAST_NAME_LOCATOR = {name: "lastname"}
+  PASS_WD_LOCATOR = {name: "reg_passwd__"}
+  EMAIL_LOCATOR = {name: "reg_email__"}
+  SUBMIT_BUTTON_LOCATOR = {name: "websubmit"}
+
+  attr_reader :driver
+
+  def initialize(driver)
+    @driver = driver
+    visit
+  end
+
+  def visit
+    driver.navigate.to("http://www.facebook.com/")
+  end
+
+  def click_submit
+    driver.find_element(SUBMIT_BUTTON_LOCATOR).click
+  end
+
+  # I would normally write custom getter and setter to make getting field values and setting more reader friendly.
+
+  def set_first_name(name)
+    el = driver.find_element(FIRST_NAME_LOCATOR)
+
+    el.clear
+    el.send_keys(name)
+  end
+
+  def first_name_in_error_state
+    !driver.find_element(FIRST_NAME_LOCATOR).attribute("aria-describedby").empty?
+  end
+
+  def first_name_in_ok_state
+    driver.find_element(FIRST_NAME_LOCATOR).attribute("aria-describedby").nil?
+  end
+
+  def set_last_name(name)
+    el = driver.find_element(LAST_NAME_LOCATOR)
+
+    el.clear
+    el.send_keys(name)
+  end
+
+  def last_name_in_error_state
+    !driver.find_element(LAST_NAME_LOCATOR).attribute("aria-describedby").empty?
+  end
+
+  def last_name_in_ok_state
+    driver.find_element(LAST_NAME_LOCATOR).attribute("aria-describedby").nil?
+  end
+
+  def set_passwd(passwd)
+    el = driver.find_element(PASS_WD_LOCATOR)
+
+    el.clear
+    el.send_keys(passwd)
+  end
+
+  def passwd_in_error_state
+    !driver.find_element(PASS_WD_LOCATOR).attribute("aria-describedby").empty?
+  end
+
+  def passwd_in_ok_state
+    driver.find_element(PASS_WD_LOCATOR).attribute("aria-describedby").nil?
+  end
+
+  def set_email(email)
+    el = driver.find_element(EMAIL_LOCATOR)
+
+    el.clear
+    el.send_keys(email)
+  end
+
+  def email_in_error_state
+    !driver.find_element(EMAIL_LOCATOR).attribute("aria-describedby").empty?
+  end
+
+  def email_in_ok_state
+    driver.find_element(EMAIL_LOCATOR).attribute("aria-describedby").nil?
+  end
+end
