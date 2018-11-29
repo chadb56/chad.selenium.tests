@@ -4,13 +4,16 @@ require_relative '../PageObjects/login_page'
 
 class FaceBookTestBase < Test::Unit::TestCase
 
+  attr_accessor :driver
+  attr_accessor :login_page
+
   def setup
     @driver = Selenium::WebDriver.for :chrome
     @login_page = LoginPage.new(@driver)
-    @driver.navigate.to("https://www.facebook.com/")
   end
 
   def teardown
+    # if the test status is anything but "passed", a screen shot will be taken before the browser is closed.
     unless passed?
       @driver.save_screenshot("TestScreenshot #{self.name.to_s}.png")
       # I would store the screenshots in a better place, or convert to a base64 string and move to a whatever

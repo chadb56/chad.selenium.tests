@@ -1,6 +1,8 @@
 require 'selenium-webdriver'
 
 class LoginPage
+  # most likely there would be a base page that this page object would inherit form.  The base page would contain any items
+  # that are present across all other pages on the website.
   FIRST_NAME_LOCATOR = {name: "firstname"}
   LAST_NAME_LOCATOR = {name: "lastname"}
   PASS_WD_LOCATOR = {name: "reg_passwd__"}
@@ -20,9 +22,12 @@ class LoginPage
 
   def click_submit
     driver.find_element(SUBMIT_BUTTON_LOCATOR).click
+    # If this click was successful and the login worked, this method would normally return the page object of whichever
+    # page comes next in the flow.
   end
 
-  # I would normally write custom getter and setter to make getting field values and setting more reader friendly.
+  # I would normally write custom getter and setter to make getting field values and setting more reader friendly, but I
+  # am still too unfamiliar with Ruby.
 
   def set_first_name(name)
     el = driver.find_element(FIRST_NAME_LOCATOR)
@@ -31,6 +36,7 @@ class LoginPage
     el.send_keys(name)
   end
 
+  # I would spend more time on determining the state of the field, I am sure this can be cleaned up a lot.
   def first_name_in_error_state
     !driver.find_element(FIRST_NAME_LOCATOR).attribute("aria-describedby").empty?
   end
